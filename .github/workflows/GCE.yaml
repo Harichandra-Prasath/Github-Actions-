@@ -27,8 +27,8 @@ jobs:
           zone: asia-south1-b
           ssh_private_key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
           script: |
-            whoami
-            ls
+            sudo whoami
+            sudo ls
             
 
       
