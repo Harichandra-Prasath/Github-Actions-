@@ -26,7 +26,7 @@ jobs:
           instance_name: github-actions
           zone: asia-south1-b
           ssh_private_key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
-          commnad: |
+          script: |
             cd Api/
             git pull git@github.com:Harichandra-Prasath/Github-Actions-.git
             . .venv/bin/activate
