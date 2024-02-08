@@ -4,4 +4,4 @@ from django.http import JsonResponse
 
 # Create your views here.
 def Home(request):
-    return JsonResponse({"status":"Success","Message":"Welcome to the home page"})
+    return JsonResponse({"status":"Success","Message":"Welcome to the home page...This is a test"})
