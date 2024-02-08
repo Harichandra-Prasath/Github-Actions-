@@ -1,0 +1,39 @@
+name: Github Actions in Google Compute Engine 
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Auth
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+      
+      - name: Compute
+        id: Compute-SSH
+        uses: google-github-actions/ssh-compute@v1
+        with:
+          instance_name: github-actions
+          zone: asia-south1-b
+          ssh_private_key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
+      
+      - name: Operations
+        run: |
+
+          cd Api/
+          git pull git@github.com:Harichandra-Prasath/Github-Actions-.git
+          . .venv/bin/activate
+          python3 manange.py makemigrations
+          python3 manage.py migrate
+          sudo systemctl restart gunicorn
+          sudo systemctl restart nginx
